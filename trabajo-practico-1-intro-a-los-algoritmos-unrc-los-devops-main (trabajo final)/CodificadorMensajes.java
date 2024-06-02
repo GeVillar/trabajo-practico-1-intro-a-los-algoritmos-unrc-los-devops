@@ -136,7 +136,7 @@ public class CodificadorMensajes
             if (i < 0 || i > 127) {
                 throw new IllegalArgumentException("Existen caracteres no pertenecientes a ASCII");
             }
-        }
+    }
         //Inicializacion del método
         //Vuelve @param str en lista, recorriendolo y sumando sus valores ASCII
         int sumaAscii = 0;
