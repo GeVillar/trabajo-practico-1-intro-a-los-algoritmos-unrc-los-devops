@@ -125,18 +125,31 @@ public class CodificadorMensajes
      * 104, 111, 108 y 97, respectivamente. Su suma es 420, y 420 % 99991 es
      * 420. Luego, el código de inscripción es el arreglo {4, 2, 0}.
      */
-    private int[] generarCodigoEncripcion(String str) 
-    {
-        // Precondición para comprobar que la cadena a encriptar no sea nula
-        if (str == null) {
-            throw new IllegalArgumentException("Cadena nula");
-        }
-        // Precondición para asegurar que los caracteres del @param str pertenecen a 0<=ASCII<=127
-        for (char i : str.toCharArray()) {
-            if (i < 0 || i > 127) {
-                throw new IllegalArgumentException("Existen caracteres no pertenecientes a ASCII");
-            }
-        }
+    private int[] generarCodigoEncripcion(String str) {
+       // Comprueba que la cadena (str) no esté vacia (null)
+        if (str == null || str.isEmpty()) {
+        throw new IllegalArgumentException("Cadena vacía");
+       }
+
+       final int primo = 99991; 
+       int sumaAscii = 0;
+
+       for (int i = 0; i < str.length(); i++) {
+        sumaAscii += str.charAt(i); // Suma los valores ASCII de todos los caracteres en la cadena.
+       }
+
+       int resto = sumaAscii % primo; // Calcula el resto de la división de la suma por el número primo.
+
+       // Convierte el resto en una cadena para obtener sus dígitos.
+       String restoStr = String.valueOf(resto);
+       int[] codigo = new int[restoStr.length()];
+
+        for (int i = 0; i < restoStr.length(); i++) {
+        codigo[i] = Character.getNumericValue(restoStr.charAt(i)); // Convirte cada dígito de la cadena en un elemento del arreglo.
+      
+       }
+       return codigo;
+    }
         //Inicializacion del método
         //Vuelve @param str en lista, recorriendolo y sumando sus valores ASCII
         int sumaAscii = 0;
